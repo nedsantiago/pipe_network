@@ -1,6 +1,10 @@
 # PROCESS:
 # structure and pipe objects
+import logging_config
+import logging
 
+# initialize logger
+logger = logging.getLogger(__name__)
 
 class GraphComponentTracker():
     def __init__(self):
@@ -17,8 +21,9 @@ class GraphComponentTracker():
             self.element_list.append(element)
         # else (already in frontier)
         else:
-            # pass
-            pass
+            msg = f"element:{element} already exists in element list"
+            logger.warning(msg)
+            raise AssertionError(msg)
 
     def contains_element(self, element):
         return element in self.element_list
@@ -39,31 +44,26 @@ class GraphComponent():
 
     _id_sets = set()
 
-    def __new__(cls):
-        new_instance = super().__new__(cls)
-
-        # initialize a new id
-        init_id = len(cls._id_sets) + 1
-
-        # while the id is among the previously declared ids
-        while init_id in cls._id_sets:
-            # increment by 1 to change it
-            init_id += 1
-
-        # now that id is unique, add to collection of ids
-        cls._id_sets.add(init_id)
-
-        # give the new instance the id
-        new_instance._id = init_id
-
-        # return the current new instance of the object
-        return new_instance
+    def __init__(self):
+        self._id = None
     
     @property
-    def id(self) -> int:
-        """Get the id number of the current structure"""
+    def id(self) -> str:
+        """Get the id string of the current component"""
         return self._id
     
+    @id.setter
+    def id(self, id):
+        """Set the id string of the current component"""
+        
+        # check if among previous id's
+        if id in self._id_sets:
+            # then assert that it should be unique
+            raise AssertionError(f"The id:{id} already exists in network")
+        
+        # set the value
+        self._id = id
+
     def __str__(self) -> str:
         return f"{self.id}"
 

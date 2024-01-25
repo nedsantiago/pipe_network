@@ -11,6 +11,19 @@ logger = logging.getLogger(__name__)
 def structure():
     return Structure()
 
+@pytest.fixture
+def structure01():
+    return Structure()
+
+@pytest.fixture
+def structure02():
+    return Structure()
+
+@pytest.fixture
+def structure03():
+    return Structure()
+
+
 # testing if structures are correctly compared
 def test_structure_compare():
     # after creating three structures
@@ -28,3 +41,12 @@ def test_structure_compare():
     # do lists work with these structures?
     ls_strucs = [structure01, structure02]
     assert structure01 in ls_strucs
+
+# test nodes/structures
+def test_structure_id(structure):
+    test_value = "ERTFT090"
+    structure.id = test_value
+
+    assert structure.id == test_value, "Structure does not accept new id's correctly"
+
+# test edges/links
