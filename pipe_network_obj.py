@@ -8,41 +8,40 @@ logger = logging.getLogger(__name__)
 
 class GraphComponentTracker():
     def __init__(self):
-        self.element_list = list()
+        self.element_set = set()
 
     def add(self, element):
         """This method only adds an element when not existing
-        in the node list. This aims to stop duplicate 
-        elements in list"""
+        in the element set. This aims to check if element already
+        exists"""
         
-        # if element not in frontier
-        if element not in self.element_list:
-            # append to frontier
-            self.element_list.append(element)
-        # else (already in frontier)
-        else:
-            msg = f"element:{element} already exists in element list"
+        # if element is in element set
+        if element in self.element_set:
+            # raise an assertion error
+            msg = f"element:{element} already exists in element set"
             logger.warning(msg)
             raise AssertionError(msg)
-
+        # else (element is unique and not in set)
+        else:
+            # add to element set
+            self.element_set.add(element)
+            
     def contains_element(self, element):
-        return element in self.element_list
+        return element in self.element_set
 
     def empty(self):
-        return len(self.element_list) == 0
+        return len(self.element_set) == 0
 
     def remove(self):
         if self.empty():
-            raise Exception("empty frontier")
+            raise Exception("empty element set")
         else:
-            node = self.element_list[-1]
-            self.element_list = self.element_list[:-1]
+            node = self.element_set[-1]
+            self.element_set = self.element_set[:-1]
             return node
 
 class GraphComponent():
     """this object initializes with a unique id by default"""
-
-    _id_sets = set()
 
     def __init__(self):
         self._id = None
@@ -56,16 +55,14 @@ class GraphComponent():
     def id(self, id):
         """Set the id string of the current component"""
         
-        # check if among previous id's
-        if id in self._id_sets:
-            # then assert that it should be unique
-            raise AssertionError(f"The id:{id} already exists in network")
-        
         # set the value
         self._id = id
 
     def __str__(self) -> str:
-        return f"{self.id}"
+        if self._id == None:
+            return "None"
+        else:
+            return self.id
 
 
 class Structure(GraphComponent):
