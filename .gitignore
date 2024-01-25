@@ -4,6 +4,7 @@
 00status/
 01input/
 03output/
+venv_pipe_network/
 
 # TEMPLATE GIT IGNORE
 # Byte-compiled / optimized / DLL files

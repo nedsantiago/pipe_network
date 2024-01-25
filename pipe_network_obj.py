@@ -2,7 +2,39 @@
 # structure and pipe objects
 
 
-class UniqueObject():
+class GraphComponentTracker():
+    def __init__(self):
+        self.element_list = list()
+
+    def add(self, element):
+        """This method only adds an element when not existing
+        in the node list. This aims to stop duplicate 
+        elements in list"""
+        
+        # if element not in frontier
+        if element not in self.element_list:
+            # append to frontier
+            self.element_list.append(element)
+        # else (already in frontier)
+        else:
+            # pass
+            pass
+
+    def contains_element(self, element):
+        return element in self.element_list
+
+    def empty(self):
+        return len(self.element_list) == 0
+
+    def remove(self):
+        if self.empty():
+            raise Exception("empty frontier")
+        else:
+            node = self.element_list[-1]
+            self.element_list = self.element_list[:-1]
+            return node
+
+class GraphComponent():
     """this object initializes with a unique id by default"""
 
     _id_sets = set()
@@ -36,7 +68,7 @@ class UniqueObject():
         return f"{self.id}"
 
 
-class Structure(UniqueObject):
+class Structure(GraphComponent):
     """this object encapsulates all the properties of a generic structure.
     Naming borrowed from Storm and Sanitary Analysis
     - id
@@ -49,7 +81,7 @@ class Structure(UniqueObject):
         return self._coordinates
 
 
-class Link(UniqueObject):
+class Link(GraphComponent):
     """this object encapsulates all the properties of a generic link.
     Naming borrowed from Storm and Sanitary Analysis
     - id
