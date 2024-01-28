@@ -2,7 +2,6 @@
 # structure and pipe objects
 import logging_config
 import logging
-from abc import ABC, abstractmethod
 
 # initialize logger
 logger = logging.getLogger(__name__)
@@ -57,7 +56,7 @@ class GraphComponentTracker():
             self.element_set = self.element_set[:-1]
             return node
 
-class GraphComponent(Element):
+class GraphComponent():
     """this object initializes with a unique id by default"""
 
     def __init__(self):
