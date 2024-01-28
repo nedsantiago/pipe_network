@@ -11,6 +11,7 @@ Objectives:
 * The GraphComponent will check any id passed.
 * fill-out the Structures attributes and their getter, setters, etc.
 * fill-out the Links attributes and their getter, setters, etc.
+* abstract method for a tracker for Dependency Inversion Principle. Create a class that requires the implementation of an add, remove, element_set, and must inherit a __new__ method that creates a singleton class.
 
 ## Project Notes
 * Attempting to use some SOLID Principles:
