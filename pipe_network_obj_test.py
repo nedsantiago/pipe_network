@@ -60,6 +60,25 @@ def test_graph_component_tracker_element_set(component_tracker, structure01, str
         component_tracker.add(structure01)
         logger.critical(f"test for component tracker ran into a problem: {e}")
 
+def test_tracker_id_unique(component_tracker, structure01, structure02):
+
+    # adding the same structure must cause AssertionError
+    with pytest.raises(IndexError) as e:
+        structure01.id = "ERTFT001"
+        structure02.id = "ERTFT002"
+        component_tracker.add(structure01)
+        component_tracker.add(structure02)
+        structure03.id = "ERTFT001"
+        logger.critical(f"Adding should run a uniqueness check: {e}")
+
+    # adding the same structure must cause AssertionError
+    with pytest.raises(IndexError) as e:
+        structure01.id = "ERTFT001"
+        structure02.id = "ERTFT001"
+        component_tracker.add(structure01)
+        component_tracker.add(structure02)
+        logger.critical(f"Tracker should check id uniqueness: {e}")
+
 # test tracker if it is a singleton
 def test_tracker_singleton(component_tracker):
     # create a second structure tracker

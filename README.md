@@ -17,3 +17,10 @@ Objectives:
 Single Responsibility
 Interface Segragation
 Dependancy Inversion Principle
+
+### INPUTS
+#### Table of manholes
+#### Table of pipes
+### PROCESS
+#### 
+### OUTPUTS

@@ -2,6 +2,7 @@
 # structure and pipe objects
 import logging_config
 import logging
+from abc import ABC, abstractmethod
 
 # initialize logger
 logger = logging.getLogger(__name__)
@@ -48,13 +49,15 @@ class GraphComponentTracker():
 
     def remove(self):
         if self.empty():
-            raise Exception("empty element set")
+            msg = "empty element set"
+            logger.info(msg)
+            raise Exception(msg)
         else:
             node = self.element_set[-1]
             self.element_set = self.element_set[:-1]
             return node
 
-class GraphComponent():
+class GraphComponent(Element):
     """this object initializes with a unique id by default"""
 
     def __init__(self):
@@ -74,7 +77,9 @@ class GraphComponent():
 
     def __str__(self) -> str:
         if self._id == None:
-            raise ValueError("Graph Component has no id: please add an id before calling this component")
+            msg = "Graph Component has no id: please add an id before calling this component"
+            logger.critical(msg)
+            raise ValueError(msg)
         else:
             return self.id
 
