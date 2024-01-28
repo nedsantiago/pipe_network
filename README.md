@@ -8,5 +8,12 @@ Objectives:
 * Easier conversion of manhole survey data into pipe network.
 
 ## TODO List
-* replace __new__. The GraphComponent object wont require an initial id, but will check any id passed.
-* fill-out the Structures attributes getter, setters, etc.
+* The GraphComponent will check any id passed.
+* fill-out the Structures attributes and their getter, setters, etc.
+* fill-out the Links attributes and their getter, setters, etc.
+
+## Project Notes
+* Attempting to use some SOLID Principles:
+Single Responsibility
+Interface Segragation
+Dependancy Inversion Principle

@@ -10,6 +10,20 @@ class GraphComponentTracker():
     def __init__(self):
         self.element_set = set()
 
+    def __new__(cls):
+        """This new function makes this object into a singleton.
+        Calling new instances of the object will only call the first
+        instance of the object."""
+
+        # if an instance does not yet exist
+        if not hasattr(cls, 'instance'):
+            # create the instance
+            cls.instance = super(GraphComponentTracker, cls).__new__(cls)
+        
+        # return the instance
+        return cls.instance
+
+
     def add(self, element):
         """This method only adds an element when not existing
         in the element set. This aims to check if element already
@@ -60,7 +74,7 @@ class GraphComponent():
 
     def __str__(self) -> str:
         if self._id == None:
-            return "None"
+            raise ValueError("Graph Component has no id: please add an id before calling this component")
         else:
             return self.id
 

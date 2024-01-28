@@ -24,7 +24,7 @@ def structure03():
     return Structure()
 
 @pytest.fixture
-def structure_tracker():
+def component_tracker():
     return GraphComponentTracker()
 
 
@@ -48,14 +48,23 @@ def test_set_structure_id(structure):
 
     assert structure.id == test_value, "Structure does not accept new id's correctly"
 
-def test_graph_component_tracker_element_set(structure_tracker, structure01, structure02):
+def test_graph_component_tracker_element_set(component_tracker, structure01, structure02):
     # add each structure
-    structure_tracker.add(structure01)
-    structure_tracker.add(structure02)
-    structure_tracker.add(structure03)
+    component_tracker.add(structure01)
+    component_tracker.add(structure02)
+    component_tracker.add(structure03)
 
     # adding the same structure must cause AssertionError
     with pytest.raises(AssertionError) as e:
-        structure_tracker.add(structure01)
+        structure01.id = "ERTFT001"
+        component_tracker.add(structure01)
+        logger.critical(f"test for component tracker ran into a problem: {e}")
+
+# test tracker if it is a singleton
+def test_tracker_singleton(component_tracker):
+    # create a second structure tracker
+    component_tracker01 = GraphComponentTracker()
+    assert component_tracker is component_tracker01, f"Component Tracker failed as a singleton"
+
 
 # test edges/links
